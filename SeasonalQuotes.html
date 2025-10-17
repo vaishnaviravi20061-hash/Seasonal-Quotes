@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seasonal Quotes - Choose Your Adventure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes confettiBurst {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInQuote {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes butterflyFly {
+            0% {
+                transform: translateX(-100px) translateY(0px);
+            }
+            25% {
+                transform: translateX(25vw) translateY(-20px);
+            }
+            50% {
+                transform: translateX(50vw) translateY(10px);
+            }
+            75% {
+                transform: translateX(75vw) translateY(-15px);
+            }
+            100% {
+                transform: translateX(100vw) translateY(5px);
+            }
+        }
+        
+        @keyframes cloudDrift {
+            0% {
+                transform: translateX(-100px);
+            }
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+        
+        @keyframes sunGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 193, 7, 0.8);
+            }
+        }
+        
+        @keyframes gentleWave {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .season-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .season-card:hover {
+            transform: translateY(-10px) scale(1.05);
+        }
+        
+        .floating-element {
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+        
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        .winter-preview {
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            animation: snowfall linear infinite;
+            pointer-events: none;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+        }
+        
+        .summer-preview {
+            position: absolute;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+        
+        .rainy-preview {
+            position: absolute;
+            color: #60A5FA;
+            font-size: 14px;
+            animation: rainfall linear infinite;
+            pointer-events: none;
+        }
+        
+        .autumn-preview {
+            position: absolute;
+            color: #F97316;
+            font-size: 16px;
+            animation: leaffall linear infinite;
+            pointer-events: none;
+        }
+        
+        .spring-preview {
+            position: absolute;
+            color: #EC4899;
+            font-size: 14px;
+            animation: petalfall linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes rainfall {
+            0% {
+                transform: translateY(-100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes leaffall {
+            0% {
+                transform: translateY(-100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(40px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes petalfall {
+            0% {
+                transform: translateY(-100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .rainy-bg {
+            background: linear-gradient(
+                to bottom,
+                #4B5563 0%,
+                #6B7280 30%,
+                #9CA3AF 60%,
+                #D1D5DB 100%
+            );
+        }
+        
+        .raindrop {
+            position: absolute;
+            color: #60A5FA;
+            font-size: 16px;
+            animation: rainfall linear infinite;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        /* Scene styles */
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            animation: snowfall linear infinite;
+            pointer-events: none;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+        
+        .mountain {
+            position: absolute;
+            bottom: 0;
+        }
+        
+        .tree {
+            position: absolute;
+            bottom: 0;
+            animation: gentleWave 4s ease-in-out infinite;
+        }
+        
+        .cloud {
+            position: absolute;
+            animation: cloudDrift 60s linear infinite;
+            opacity: 0.7;
+        }
+        
+        .nature-bg {
+            background: linear-gradient(
+                to bottom,
+                #87CEEB 0%,
+                #B0E0E6 30%,
+                #F0F8FF 60%,
+                #FFFFFF 100%
+            );
+        }
+        
+        .confetti-piece {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confettiBurst 2s ease-out forwards;
+        }
+        
+        .quote-appear {
+            animation: fadeInQuote 1s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        
+        .flower {
+            position: absolute;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+        
+        .butterfly {
+            position: absolute;
+            animation: butterflyFly 20s linear infinite;
+            font-size: 24px;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            animation: sunGlow 3s ease-in-out infinite;
+        }
+        
+        .summer-bg {
+            background: linear-gradient(
+                to bottom,
+                #87CEEB 0%,
+                #98D8E8 30%,
+                #B8E6B8 70%,
+                #90EE90 100%
+            );
+        }
+        
+        .autumn-bg {
+            background: linear-gradient(
+                to bottom,
+                #FFD700 0%,
+                #FFA500 20%,
+                #DEB887 50%,
+                #D2B48C 80%,
+                #CD853F 100%
+            );
+        }
+        
+        .spring-bg {
+            background: linear-gradient(
+                to bottom,
+                #FFB6C1 0%,
+                #FFC0CB 30%,
+                #98FB98 60%,
+                #90EE90 100%
+            );
+        }
+        
+        .leaf {
+            position: absolute;
+            animation: leaffall linear infinite;
+            pointer-events: none;
+        }
+        
+        .petal {
+            position: absolute;
+            animation: petalfall linear infinite;
+            pointer-events: none;
+        }
+        
+        .scene {
+            display: none;
+        }
+        
+        .scene.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="gradient-bg relative">
+    
+    <!-- Selection Screen -->
+    <div id="selectionScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="text-center max-w-4xl mx-auto relative z-10">
+            <h1 class="text-6xl font-bold text-white mb-4 drop-shadow-2xl">🌟 Seasonal Quotes 🌟</h1>
+            <p class="text-2xl text-white mb-12 drop-shadow-lg">Choose your perfect season for inspiration</p>
+        
+        <div class="grid md:grid-cols-5 gap-4 max-w-7xl mx-auto">
+            <!-- Winter Card -->
+            <div class="season-card bg-white/20 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/30 relative overflow-hidden" onclick="showWinterScene()">
+                <div class="relative z-10">
+                    <div class="text-6xl mb-3">❄️</div>
+                    <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">Winter Wonderland</h2>
+                    <p class="text-sm text-white/90 mb-4 drop-shadow-sm">Peaceful snowy mountains with gentle snowfall and inspiring quotes</p>
+                    <div class="flex justify-center space-x-2 text-3xl mb-4">
+                        <span class="floating-element">🏔️</span>
+                        <span class="floating-element" style="animation-delay: -1s;">🌲</span>
+                        <span class="floating-element" style="animation-delay: -2s;">❄️</span>
+                    </div>
+                    <button class="bg-blue-500/80 hover:bg-blue-600/80 text-white font-bold py-2 px-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
+                        Enter Winter Scene
+                    </button>
+                </div>
+                
+                <!-- Winter preview elements -->
+                <div class="winter-preview" style="left: 10%; animation-duration: 8s; animation-delay: 0s;">❄</div>
+                <div class="winter-preview" style="left: 30%; animation-duration: 12s; animation-delay: -2s;">❅</div>
+                <div class="winter-preview" style="left: 60%; animation-duration: 10s; animation-delay: -4s;">❆</div>
+                <div class="winter-preview" style="left: 80%; animation-duration: 15s; animation-delay: -1s;">❄</div>
+            </div>
+            
+            <!-- Summer Card -->
+            <div class="season-card bg-white/20 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/30 relative overflow-hidden" onclick="showSummerScene()">
+                <div class="relative z-10">
+                    <div class="text-6xl mb-3">🌞</div>
+                    <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">Summer Paradise</h2>
+                    <p class="text-sm text-white/90 mb-4 drop-shadow-sm">Vibrant meadows with butterflies, flowers and uplifting quotes</p>
+                    <div class="flex justify-center space-x-2 text-3xl mb-4">
+                        <span class="floating-element">🌻</span>
+                        <span class="floating-element" style="animation-delay: -1s;">🦋</span>
+                        <span class="floating-element" style="animation-delay: -2s;">🌸</span>
+                    </div>
+                    <button class="bg-yellow-500/80 hover:bg-yellow-600/80 text-white font-bold py-2 px-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
+                        Enter Summer Scene
+                    </button>
+                </div>
+                
+                <!-- Summer preview elements -->
+                <div class="summer-preview" style="bottom: 10%; left: 15%; animation-delay: 0s;">
+                    <div class="text-2xl">🌺</div>
+                </div>
+                <div class="summer-preview" style="bottom: 20%; right: 20%; animation-delay: -1s;">
+                    <div class="text-xl">🌼</div>
+                </div>
+                <div class="summer-preview" style="top: 30%; right: 15%; animation-delay: -2s;">
+                    <div class="text-lg">🦋</div>
+                </div>
+            </div>
+            
+            <!-- Autumn Card -->
+            <div class="season-card bg-white/20 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/30 relative overflow-hidden" onclick="showAutumnScene()">
+                <div class="relative z-10">
+                    <div class="text-6xl mb-3">🍂</div>
+                    <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">Autumn Bliss</h2>
+                    <p class="text-sm text-white/90 mb-4 drop-shadow-sm">Golden leaves falling with warm, cozy quotes</p>
+                    <div class="flex justify-center space-x-2 text-3xl mb-4">
+                        <span class="floating-element">🍁</span>
+                        <span class="floating-element" style="animation-delay: -1s;">🎃</span>
+                        <span class="floating-element" style="animation-delay: -2s;">🌰</span>
+                    </div>
+                    <button class="bg-orange-500/80 hover:bg-orange-600/80 text-white font-bold py-2 px-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
+                        Enter Autumn Scene
+                    </button>
+                </div>
+                
+                <!-- Autumn preview elements -->
+                <div class="autumn-preview" style="left: 15%; animation-duration: 4s; animation-delay: 0s;">🍂</div>
+                <div class="autumn-preview" style="left: 35%; animation-duration: 5s; animation-delay: -1s;">🍁</div>
+                <div class="autumn-preview" style="left: 55%; animation-duration: 3.5s; animation-delay: -0.5s;">🍂</div>
+                <div class="autumn-preview" style="left: 75%; animation-duration: 4.5s; animation-delay: -1.5s;">🍁</div>
+            </div>
+            
+            <!-- Spring Card -->
+            <div class="season-card bg-white/20 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/30 relative overflow-hidden" onclick="showSpringScene()">
+                <div class="relative z-10">
+                    <div class="text-6xl mb-3">🌸</div>
+                    <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">Spring Bloom</h2>
+                    <p class="text-sm text-white/90 mb-4 drop-shadow-sm">Fresh blossoms and new beginnings with hopeful quotes</p>
+                    <div class="flex justify-center space-x-2 text-3xl mb-4">
+                        <span class="floating-element">🌷</span>
+                        <span class="floating-element" style="animation-delay: -1s;">🌱</span>
+                        <span class="floating-element" style="animation-delay: -2s;">🐝</span>
+                    </div>
+                    <button class="bg-pink-500/80 hover:bg-pink-600/80 text-white font-bold py-2 px-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
+                        Enter Spring Scene
+                    </button>
+                </div>
+                
+                <!-- Spring preview elements -->
+                <div class="spring-preview" style="left: 15%; animation-duration: 3s; animation-delay: 0s;">🌸</div>
+                <div class="spring-preview" style="left: 35%; animation-duration: 2.5s; animation-delay: -1s;">🌷</div>
+                <div class="spring-preview" style="left: 55%; animation-duration: 3.5s; animation-delay: -0.5s;">🌺</div>
+                <div class="spring-preview" style="left: 75%; animation-duration: 2.8s; animation-delay: -1.5s;">🌸</div>
+            </div>
+            
+            <!-- Rainy Card -->
+            <div class="season-card bg-white/20 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/30 relative overflow-hidden" onclick="showRainyScene()">
+                <div class="relative z-10">
+                    <div class="text-6xl mb-3">🌧️</div>
+                    <h2 class="text-2xl font-bold text-white mb-3 drop-shadow-lg">Rainy Retreat</h2>
+                    <p class="text-sm text-white/90 mb-4 drop-shadow-sm">Cozy atmosphere with gentle rainfall and refreshing quotes</p>
+                    <div class="flex justify-center space-x-2 text-3xl mb-4">
+                        <span class="floating-element">☔</span>
+                        <span class="floating-element" style="animation-delay: -1s;">🌿</span>
+                        <span class="floating-element" style="animation-delay: -2s;">💧</span>
+                    </div>
+                    <button class="bg-gray-500/80 hover:bg-gray-600/80 text-white font-bold py-2 px-4 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
+                        Enter Rainy Scene
+                    </button>
+                </div>
+                
+                <!-- Rainy preview elements -->
+                <div class="rainy-preview" style="left: 15%; animation-duration: 3s; animation-delay: 0s;">💧</div>
+                <div class="rainy-preview" style="left: 35%; animation-duration: 2.5s; animation-delay: -1s;">💧</div>
+                <div class="rainy-preview" style="left: 55%; animation-duration: 3.5s; animation-delay: -0.5s;">💧</div>
+                <div class="rainy-preview" style="left: 75%; animation-duration: 2.8s; animation-delay: -1.5s;">💧</div>
+            </div>
+        </div>
+        
+            <div class="mt-12">
+                <p class="text-white/80 text-lg drop-shadow-sm">Each scene features beautiful confetti bursts with inspiring quotes!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Winter Scene -->
+    <div id="winterScene" class="scene min-h-screen nature-bg overflow-hidden relative">
+        <!-- Sky and Clouds -->
+        <div class="cloud" style="top: 10%; left: -200px; animation-delay: 0s;">
+            <svg width="120" height="60" viewBox="0 0 120 60">
+                <ellipse cx="30" cy="40" rx="25" ry="15" fill="rgba(255,255,255,0.8)"/>
+                <ellipse cx="60" cy="30" rx="35" ry="20" fill="rgba(255,255,255,0.9)"/>
+                <ellipse cx="90" cy="40" rx="25" ry="15" fill="rgba(255,255,255,0.8)"/>
+            </svg>
+        </div>
+        
+        <div class="cloud" style="top: 20%; left: -150px; animation-delay: -20s;">
+            <svg width="100" height="50" viewBox="0 0 100 50">
+                <ellipse cx="25" cy="35" rx="20" ry="12" fill="rgba(255,255,255,0.7)"/>
+                <ellipse cx="50" cy="25" rx="30" ry="18" fill="rgba(255,255,255,0.8)"/>
+                <ellipse cx="75" cy="35" rx="20" ry="12" fill="rgba(255,255,255,0.7)"/>
+            </svg>
+        </div>
+        
+        <!-- Mountains -->
+        <div class="mountain" style="left: -10%; width: 40%; height: 60%;">
+            <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
+                <polygon points="0,300 150,50 300,120 400,80 400,300" fill="#4A5568" opacity="0.8"/>
+                <polygon points="0,300 150,50 250,90 300,120 400,300" fill="#2D3748" opacity="0.6"/>
+            </svg>
+        </div>
+        
+        <div class="mountain" style="right: -10%; width: 50%; height: 70%;">
+            <svg width="100%" height="100%" viewBox="0 0 500 350" preserveAspectRatio="none">
+                <polygon points="0,350 100,40 250,80 400,30 500,60 500,350" fill="#2D3748" opacity="0.7"/>
+                <polygon points="100,350 200,60 350,100 500,50 500,350" fill="#4A5568" opacity="0.5"/>
+            </svg>
+        </div>
+        
+        <!-- Snow-covered Hills -->
+        <div class="absolute bottom-0 w-full h-32">
+            <svg width="100%" height="100%" viewBox="0 0 1200 128" preserveAspectRatio="none">
+                <path d="M0,128 C300,80 600,100 900,60 C1000,40 1100,50 1200,80 L1200,128 Z" fill="#F7FAFC"/>
+                <path d="M0,128 C200,90 400,110 600,85 C800,60 1000,70 1200,90 L1200,128 Z" fill="#EDF2F7" opacity="0.8"/>
+            </svg>
+        </div>
+        
+        <!-- Evergreen Trees -->
+        <div class="tree" style="left: 15%; animation-delay: 0s;">
+            <svg width="60" height="120" viewBox="0 0 60 120">
+                <rect x="26" y="100" width="8" height="20" fill="#8B4513"/>
+                <polygon points="30,100 10,70 50,70" fill="#0F4C3A"/>
+                <polygon points="30,80 12,55 48,55" fill="#1A5D4A"/>
+                <polygon points="30,65 15,40 45,40" fill="#0F4C3A"/>
+                <polygon points="30,50 18,25 42,25" fill="#1A5D4A"/>
+                <polygon points="30,35 20,10 40,10" fill="#0F4C3A"/>
+            </svg>
+        </div>
+        
+        <div class="tree" style="left: 25%; animation-delay: -1s;">
+            <svg width="80" height="140" viewBox="0 0 80 140">
+                <rect x="36" y="115" width="8" height="25" fill="#8B4513"/>
+                <polygon points="40,115 15,80 65,80" fill="#0F4C3A"/>
+                <polygon points="40,95 18,65 62,65" fill="#1A5D4A"/>
+                <polygon points="40,75 22,45 58,45" fill="#0F4C3A"/>
+                <polygon points="40,55 25,25 55,25" fill="#1A5D4A"/>
+                <polygon points="40,35 28,5 52,5" fill="#0F4C3A"/>
+            </svg>
+        </div>
+        
+        <div class="tree" style="right: 20%; animation-delay: -2s;">
+            <svg width="70" height="130" viewBox="0 0 70 130">
+                <rect x="31" y="110" width="8" height="20" fill="#8B4513"/>
+                <polygon points="35,110 12,75 58,75" fill="#0F4C3A"/>
+                <polygon points="35,90 16,60 54,60" fill="#1A5D4A"/>
+                <polygon points="35,70 20,40 50,40" fill="#0F4C3A"/>
+                <polygon points="35,50 23,20 47,20" fill="#1A5D4A"/>
+                <polygon points="35,30 25,0 45,0" fill="#0F4C3A"/>
+            </svg>
+        </div>
+        
+        <div class="tree" style="right: 35%; animation-delay: -0.5s;">
+            <svg width="50" height="100" viewBox="0 0 50 100">
+                <rect x="21" y="85" width="8" height="15" fill="#8B4513"/>
+                <polygon points="25,85 8,60 42,60" fill="#0F4C3A"/>
+                <polygon points="25,70 12,50 38,50" fill="#1A5D4A"/>
+                <polygon points="25,55 15,35 35,35" fill="#0F4C3A"/>
+                <polygon points="25,40 18,20 32,20" fill="#1A5D4A"/>
+                <polygon points="25,25 20,5 30,5" fill="#0F4C3A"/>
+            </svg>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 drop-shadow-lg">❄️ Winter Quotes ❄️</h1>
+                <p class="text-xl text-gray-700 mb-8 drop-shadow-sm">Find inspiration in this peaceful winter wonderland</p>
+                
+                <div class="relative mb-8">
+                    <button id="winterBloomButton" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200">
+                        🎊 Burst Winter Confetti!
+                    </button>
+                </div>
+                
+                <div id="winterConfettiContainer" class="relative flex justify-center items-center h-64 mb-8">
+                    <!-- Confetti will appear here -->
+                </div>
+                
+                <div id="winterQuoteContainer" class="bg-white/30 backdrop-blur-md rounded-2xl p-6 shadow-xl max-w-lg mx-auto border border-white/40" style="display: none;">
+                    <div id="winterQuoteEmoji" class="text-6xl mb-4 text-center drop-shadow-lg"></div>
+                    <p id="winterQuoteText" class="text-lg text-gray-800 italic mb-4 font-medium"></p>
+                    <div class="flex gap-4 justify-center">
+                        <button id="winterNextButton" class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            ❄️ Another Winter Quote
+                        </button>
+                        <button onclick="showSelectionScreen()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🏠 Back to Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rainy Scene -->
+    <div id="rainyScene" class="scene min-h-screen rainy-bg overflow-hidden relative">
+        <!-- Dark Clouds -->
+        <div class="cloud" style="top: 5%; left: -180px; animation-delay: 0s; opacity: 0.9;">
+            <svg width="150" height="80" viewBox="0 0 150 80">
+                <ellipse cx="35" cy="50" rx="30" ry="20" fill="rgba(75,85,99,0.8)"/>
+                <ellipse cx="75" cy="40" rx="40" ry="25" fill="rgba(55,65,81,0.9)"/>
+                <ellipse cx="115" cy="50" rx="30" ry="20" fill="rgba(75,85,99,0.8)"/>
+            </svg>
+        </div>
+        
+        <div class="cloud" style="top: 15%; left: -120px; animation-delay: -25s; opacity: 0.8;">
+            <svg width="130" height="70" viewBox="0 0 130 70">
+                <ellipse cx="30" cy="45" rx="25" ry="18" fill="rgba(55,65,81,0.7)"/>
+                <ellipse cx="65" cy="35" rx="35" ry="22" fill="rgba(75,85,99,0.8)"/>
+                <ellipse cx="100" cy="45" rx="25" ry="18" fill="rgba(55,65,81,0.7)"/>
+            </svg>
+        </div>
+        
+        <!-- City Silhouette -->
+        <div class="absolute bottom-0 w-full h-48">
+            <svg width="100%" height="100%" viewBox="0 0 1200 192" preserveAspectRatio="none">
+                <!-- Buildings -->
+                <rect x="0" y="120" width="80" height="72" fill="#374151" opacity="0.8"/>
+                <rect x="100" y="80" width="60" height="112" fill="#4B5563" opacity="0.7"/>
+                <rect x="180" y="100" width="90" height="92" fill="#374151" opacity="0.8"/>
+                <rect x="290" y="60" width="70" height="132" fill="#4B5563" opacity="0.9"/>
+                <rect x="380" y="90" width="85" height="102" fill="#374151" opacity="0.7"/>
+                <rect x="480" y="70" width="75" height="122" fill="#4B5563" opacity="0.8"/>
+                <rect x="570" y="110" width="65" height="82" fill="#374151" opacity="0.6"/>
+                <rect x="650" y="85" width="80" height="107" fill="#4B5563" opacity="0.8"/>
+                <rect x="750" y="95" width="70" height="97" fill="#374151" opacity="0.7"/>
+                <rect x="840" y="75" width="85" height="117" fill="#4B5563" opacity="0.9"/>
+                <rect x="940" y="105" width="75" height="87" fill="#374151" opacity="0.6"/>
+                <rect x="1030" y="90" width="80" height="102" fill="#4B5563" opacity="0.8"/>
+                <rect x="1120" y="100" width="80" height="92" fill="#374151" opacity="0.7"/>
+                
+                <!-- Windows (small yellow rectangles) -->
+                <rect x="20" y="140" width="8" height="12" fill="#FCD34D" opacity="0.8"/>
+                <rect x="35" y="135" width="8" height="12" fill="#FCD34D" opacity="0.6"/>
+                <rect x="50" y="145" width="8" height="12" fill="#FCD34D" opacity="0.9"/>
+                
+                <rect x="120" y="100" width="8" height="12" fill="#FCD34D" opacity="0.7"/>
+                <rect x="135" y="110" width="8" height="12" fill="#FCD34D" opacity="0.8"/>
+                
+                <rect x="200" y="120" width="8" height="12" fill="#FCD34D" opacity="0.6"/>
+                <rect x="220" y="125" width="8" height="12" fill="#FCD34D" opacity="0.9"/>
+                <rect x="240" y="130" width="8" height="12" fill="#FCD34D" opacity="0.7"/>
+                
+                <rect x="310" y="80" width="8" height="12" fill="#FCD34D" opacity="0.8"/>
+                <rect x="325" y="90" width="8" height="12" fill="#FCD34D" opacity="0.6"/>
+                <rect x="340" y="100" width="8" height="12" fill="#FCD34D" opacity="0.9"/>
+            </svg>
+        </div>
+        
+        <!-- Trees and Plants -->
+        <div class="absolute bottom-0" style="left: 8%;">
+            <svg width="80" height="120" viewBox="0 0 80 120">
+                <rect x="35" y="100" width="10" height="20" fill="#8B4513"/>
+                <circle cx="40" cy="85" r="25" fill="#22543D" opacity="0.8"/>
+                <circle cx="32" cy="75" r="18" fill="#2D5A3D" opacity="0.9"/>
+                <circle cx="48" cy="80" r="20" fill="#22543D" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-0" style="right: 12%;">
+            <svg width="100" height="140" viewBox="0 0 100 140">
+                <rect x="45" y="115" width="10" height="25" fill="#8B4513"/>
+                <circle cx="50" cy="95" r="30" fill="#22543D" opacity="0.8"/>
+                <circle cx="38" cy="82" r="22" fill="#2D5A3D" opacity="0.9"/>
+                <circle cx="62" cy="88" r="25" fill="#22543D" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Puddles -->
+        <div class="absolute bottom-12" style="left: 20%;">
+            <svg width="80" height="20" viewBox="0 0 80 20">
+                <ellipse cx="40" cy="15" rx="35" ry="8" fill="#60A5FA" opacity="0.6"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-8" style="right: 30%;">
+            <svg width="60" height="15" viewBox="0 0 60 15">
+                <ellipse cx="30" cy="10" rx="25" ry="6" fill="#60A5FA" opacity="0.5"/>
+            </svg>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-gray-200 mb-4 drop-shadow-lg">🌧️ Rainy Quotes 🌧️</h1>
+                <p class="text-xl text-gray-300 mb-8 drop-shadow-sm">Find comfort and inspiration in this cozy rainy atmosphere</p>
+                
+                <div class="relative mb-8">
+                    <button id="rainyBloomButton" class="bg-gradient-to-r from-blue-400 to-gray-600 hover:from-blue-500 hover:to-gray-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200">
+                        🎊 Burst Rainy Confetti!
+                    </button>
+                </div>
+                
+                <div id="rainyConfettiContainer" class="relative flex justify-center items-center h-64 mb-8">
+                    <!-- Confetti will appear here -->
+                </div>
+                
+                <div id="rainyQuoteContainer" class="bg-gray-800/40 backdrop-blur-md rounded-2xl p-6 shadow-xl max-w-lg mx-auto border border-gray-600/50" style="display: none;">
+                    <div id="rainyQuoteEmoji" class="text-6xl mb-4 text-center drop-shadow-lg"></div>
+                    <p id="rainyQuoteText" class="text-lg text-gray-200 italic mb-4 font-medium"></p>
+                    <div class="flex gap-4 justify-center">
+                        <button id="rainyNextButton" class="bg-gradient-to-r from-blue-400 to-purple-500 hover:from-blue-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            ☔ Another Rainy Quote
+                        </button>
+                        <button onclick="showSelectionScreen()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🏠 Back to Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Autumn Scene -->
+    <div id="autumnScene" class="scene min-h-screen autumn-bg overflow-hidden relative">
+        <!-- Autumn Trees -->
+        <div class="absolute bottom-0" style="left: 8%;">
+            <svg width="120" height="180" viewBox="0 0 120 180">
+                <rect x="55" y="150" width="10" height="30" fill="#8B4513"/>
+                <circle cx="60" cy="130" r="40" fill="#D2691E" opacity="0.8"/>
+                <circle cx="45" cy="115" r="30" fill="#FF8C00" opacity="0.9"/>
+                <circle cx="75" cy="120" r="32" fill="#FF6347" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-0" style="right: 12%;">
+            <svg width="100" height="160" viewBox="0 0 100 160">
+                <rect x="45" y="130" width="10" height="30" fill="#8B4513"/>
+                <circle cx="50" cy="110" r="35" fill="#CD853F" opacity="0.8"/>
+                <circle cx="38" cy="95" r="25" fill="#DEB887" opacity="0.9"/>
+                <circle cx="62" cy="100" r="28" fill="#D2691E" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-0" style="left: 35%;">
+            <svg width="80" height="140" viewBox="0 0 80 140">
+                <rect x="35" y="115" width="10" height="25" fill="#8B4513"/>
+                <circle cx="40" cy="95" r="30" fill="#FF8C00" opacity="0.8"/>
+                <circle cx="30" cy="85" r="20" fill="#FF6347" opacity="0.9"/>
+                <circle cx="50" cy="90" r="22" fill="#D2691E" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Additional Autumn Trees -->
+        <div class="absolute bottom-0" style="left: 70%;">
+            <svg width="90" height="130" viewBox="0 0 90 130">
+                <rect x="40" y="105" width="10" height="25" fill="#8B4513"/>
+                <circle cx="45" cy="85" r="28" fill="#FF6347" opacity="0.8"/>
+                <circle cx="35" cy="75" r="20" fill="#FF8C00" opacity="0.9"/>
+                <circle cx="55" cy="80" r="22" fill="#D2691E" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Autumn Bushes -->
+        <div class="absolute bottom-5" style="left: 25%;">
+            <svg width="60" height="40" viewBox="0 0 60 40">
+                <circle cx="20" cy="25" r="15" fill="#CD853F" opacity="0.8"/>
+                <circle cx="40" cy="30" r="18" fill="#DEB887" opacity="0.7"/>
+                <circle cx="30" cy="20" r="12" fill="#D2691E" opacity="0.9"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-8" style="right: 45%;">
+            <svg width="70" height="45" viewBox="0 0 70 45">
+                <circle cx="25" cy="30" r="18" fill="#FF8C00" opacity="0.8"/>
+                <circle cx="45" cy="35" r="20" fill="#CD853F" opacity="0.7"/>
+                <circle cx="35" cy="25" r="15" fill="#DEB887" opacity="0.9"/>
+            </svg>
+        </div>
+        
+        <!-- Autumn Ground Cover -->
+        <div class="absolute bottom-2" style="left: 15%;">
+            <div class="text-2xl">🍂</div>
+        </div>
+        <div class="absolute bottom-3" style="left: 45%;">
+            <div class="text-xl">🍁</div>
+        </div>
+        <div class="absolute bottom-1" style="right: 25%;">
+            <div class="text-2xl">🍂</div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-orange-900 mb-4 drop-shadow-lg">🍂 Autumn Quotes 🍂</h1>
+                <p class="text-xl text-orange-800 mb-8 drop-shadow-sm">Find warmth and wisdom in this golden autumn scene</p>
+                
+                <div class="relative mb-8">
+                    <button id="autumnBloomButton" class="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200">
+                        🎊 Burst Autumn Confetti!
+                    </button>
+                </div>
+                
+                <div id="autumnConfettiContainer" class="relative flex justify-center items-center h-64 mb-8">
+                    <!-- Confetti will appear here -->
+                </div>
+                
+                <div id="autumnQuoteContainer" class="bg-orange-100/40 backdrop-blur-md rounded-2xl p-6 shadow-xl max-w-lg mx-auto border border-orange-200/50" style="display: none;">
+                    <div id="autumnQuoteEmoji" class="text-6xl mb-4 text-center drop-shadow-lg"></div>
+                    <p id="autumnQuoteText" class="text-lg text-orange-900 italic mb-4 font-medium"></p>
+                    <div class="flex gap-4 justify-center">
+                        <button id="autumnNextButton" class="bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🍁 Another Autumn Quote
+                        </button>
+                        <button onclick="showSelectionScreen()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🏠 Back to Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Spring Scene -->
+    <div id="springScene" class="scene min-h-screen spring-bg overflow-hidden relative">
+        <!-- Cherry Blossom Trees -->
+        <div class="absolute bottom-0" style="left: 10%;">
+            <svg width="100" height="160" viewBox="0 0 100 160">
+                <rect x="45" y="130" width="10" height="30" fill="#8B4513"/>
+                <circle cx="50" cy="110" r="35" fill="#FFB6C1" opacity="0.8"/>
+                <circle cx="38" cy="95" r="25" fill="#FFC0CB" opacity="0.9"/>
+                <circle cx="62" cy="100" r="28" fill="#FFB6C1" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-0" style="right: 15%;">
+            <svg width="120" height="180" viewBox="0 0 120 180">
+                <rect x="55" y="150" width="10" height="30" fill="#8B4513"/>
+                <circle cx="60" cy="130" r="40" fill="#FFC0CB" opacity="0.8"/>
+                <circle cx="45" cy="115" r="30" fill="#FFB6C1" opacity="0.9"/>
+                <circle cx="75" cy="120" r="32" fill="#FFC0CB" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Spring Flowers -->
+        <div class="flower" style="bottom: 15%; left: 25%; animation-delay: 0s;">
+            <div class="text-4xl">🌷</div>
+        </div>
+        
+        <div class="flower" style="bottom: 18%; right: 35%; animation-delay: -0.5s;">
+            <div class="text-4xl">🌺</div>
+        </div>
+        
+        <!-- Additional Spring Trees -->
+        <div class="absolute bottom-0" style="left: 65%;">
+            <svg width="80" height="140" viewBox="0 0 80 140">
+                <rect x="35" y="115" width="10" height="25" fill="#8B4513"/>
+                <circle cx="40" cy="95" r="30" fill="#FFC0CB" opacity="0.8"/>
+                <circle cx="30" cy="85" r="22" fill="#FFB6C1" opacity="0.9"/>
+                <circle cx="50" cy="90" r="25" fill="#FFC0CB" opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Spring Bushes -->
+        <div class="absolute bottom-8" style="left: 30%;">
+            <svg width="50" height="35" viewBox="0 0 50 35">
+                <circle cx="15" cy="22" r="12" fill="#98FB98" opacity="0.8"/>
+                <circle cx="35" cy="25" r="15" fill="#90EE90" opacity="0.7"/>
+                <circle cx="25" cy="18" r="10" fill="#98FB98" opacity="0.9"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-6" style="right: 40%;">
+            <svg width="65" height="40" viewBox="0 0 65 40">
+                <circle cx="20" cy="25" r="15" fill="#90EE90" opacity="0.8"/>
+                <circle cx="45" cy="28" r="18" fill="#98FB98" opacity="0.7"/>
+                <circle cx="32" cy="20" r="12" fill="#90EE90" opacity="0.9"/>
+            </svg>
+        </div>
+        
+        <!-- More Spring Flowers -->
+        <div class="flower" style="bottom: 12%; left: 50%; animation-delay: -2.5s;">
+            <div class="text-3xl">🌻</div>
+        </div>
+        
+        <!-- Bees -->
+        <div class="butterfly" style="top: 40%; animation-delay: 0s; animation-duration: 15s;">🐝</div>
+        <div class="butterfly" style="top: 55%; animation-delay: -5s; animation-duration: 20s;">🐝</div>
+        <div class="butterfly" style="top: 35%; animation-delay: -8s; animation-duration: 18s;">🦋</div>
+        
+        <!-- Content Area -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-pink-800 mb-4 drop-shadow-lg">🌸 Spring Quotes 🌸</h1>
+                <p class="text-xl text-pink-700 mb-8 drop-shadow-sm">Embrace new beginnings in this fresh spring garden</p>
+                
+                <div class="relative mb-8">
+                    <button id="springBloomButton" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200">
+                        🎊 Burst Spring Confetti!
+                    </button>
+                </div>
+                
+                <div id="springConfettiContainer" class="relative flex justify-center items-center h-64 mb-8">
+                    <!-- Confetti will appear here -->
+                </div>
+                
+                <div id="springQuoteContainer" class="bg-pink-100/40 backdrop-blur-md rounded-2xl p-6 shadow-xl max-w-lg mx-auto border border-pink-200/50" style="display: none;">
+                    <div id="springQuoteEmoji" class="text-6xl mb-4 text-center drop-shadow-lg"></div>
+                    <p id="springQuoteText" class="text-lg text-pink-800 italic mb-4 font-medium"></p>
+                    <div class="flex gap-4 justify-center">
+                        <button id="springNextButton" class="bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🌷 Another Spring Quote
+                        </button>
+                        <button onclick="showSelectionScreen()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🏠 Back to Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Summer Scene -->
+    <div id="summerScene" class="scene min-h-screen summer-bg overflow-hidden relative">
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Clouds -->
+        <div class="cloud" style="top: 15%; left: -150px; animation-delay: 0s;">
+            <svg width="120" height="60" viewBox="0 0 120 60">
+                <ellipse cx="30" cy="40" rx="25" ry="15" fill="rgba(255,255,255,0.9)"/>
+                <ellipse cx="60" cy="30" rx="35" ry="20" fill="rgba(255,255,255,1)"/>
+                <ellipse cx="90" cy="40" rx="25" ry="15" fill="rgba(255,255,255,0.9)"/>
+            </svg>
+        </div>
+        
+        <div class="cloud" style="top: 25%; left: -100px; animation-delay: -15s;">
+            <svg width="100" height="50" viewBox="0 0 100 50">
+                <ellipse cx="25" cy="35" rx="20" ry="12" fill="rgba(255,255,255,0.8)"/>
+                <ellipse cx="50" cy="25" rx="30" ry="18" fill="rgba(255,255,255,0.9)"/>
+                <ellipse cx="75" cy="35" rx="20" ry="12" fill="rgba(255,255,255,0.8)"/>
+            </svg>
+        </div>
+        
+        <!-- Rolling Hills -->
+        <div class="absolute bottom-0 w-full h-40">
+            <svg width="100%" height="100%" viewBox="0 0 1200 160" preserveAspectRatio="none">
+                <path d="M0,160 C300,100 600,120 900,80 C1000,60 1100,70 1200,100 L1200,160 Z" fill="#32CD32"/>
+                <path d="M0,160 C200,110 400,130 600,105 C800,80 1000,90 1200,110 L1200,160 Z" fill="#228B22" opacity="0.8"/>
+            </svg>
+        </div>
+        
+        <!-- Flowers scattered around -->
+        <div class="flower" style="bottom: 15%; left: 10%; animation-delay: 0s;">
+            <div class="text-4xl">🌸</div>
+        </div>
+        
+        <div class="flower" style="bottom: 20%; left: 20%; animation-delay: -1s;">
+            <div class="text-3xl">🌺</div>
+        </div>
+        
+        <div class="flower" style="bottom: 25%; left: 35%; animation-delay: -2s;">
+            <div class="text-4xl">🌻</div>
+        </div>
+        
+        <div class="flower" style="bottom: 18%; right: 25%; animation-delay: -0.5s;">
+            <div class="text-3xl">🌷</div>
+        </div>
+        
+        <div class="flower" style="bottom: 22%; right: 15%; animation-delay: -1.5s;">
+            <div class="text-4xl">🌼</div>
+        </div>
+        
+        <div class="flower" style="bottom: 30%; left: 60%; animation-delay: -3s;">
+            <div class="text-3xl">🌹</div>
+        </div>
+        
+        <!-- Trees -->
+        <div class="absolute bottom-0" style="left: 5%;">
+            <svg width="100" height="150" viewBox="0 0 100 150">
+                <rect x="45" y="120" width="10" height="30" fill="#8B4513"/>
+                <circle cx="50" cy="100" r="35" fill="#228B22"/>
+                <circle cx="40" cy="90" r="25" fill="#32CD32"/>
+                <circle cx="60" cy="95" r="28" fill="#228B22"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-0" style="right: 8%;">
+            <svg width="120" height="160" viewBox="0 0 120 160">
+                <rect x="55" y="130" width="10" height="30" fill="#8B4513"/>
+                <circle cx="60" cy="110" r="40" fill="#228B22"/>
+                <circle cx="45" cy="95" r="30" fill="#32CD32"/>
+                <circle cx="75" cy="100" r="32" fill="#228B22"/>
+            </svg>
+        </div>
+        
+        <!-- Butterflies -->
+        <div class="butterfly" style="top: 30%; animation-delay: 0s;">🦋</div>
+        <div class="butterfly" style="top: 45%; animation-delay: -8s; animation-duration: 25s;">🦋</div>
+        <div class="butterfly" style="top: 60%; animation-delay: -15s; animation-duration: 18s;">🦋</div>
+        
+        <!-- Content Area -->
+        <div class="relative z-10 flex items-center justify-center min-h-screen">
+            <div class="text-center max-w-2xl mx-auto">
+                <h1 class="text-5xl font-bold text-green-800 mb-4 drop-shadow-lg">🌞 Summer Quotes 🌞</h1>
+                <p class="text-xl text-green-700 mb-8 drop-shadow-sm">Find inspiration in this beautiful summer paradise</p>
+                
+                <div class="relative mb-8">
+                    <button id="summerBloomButton" class="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition-all duration-200">
+                        🎊 Burst Summer Confetti!
+                    </button>
+                </div>
+                
+                <div id="summerConfettiContainer" class="relative flex justify-center items-center h-64 mb-8">
+                    <!-- Confetti will appear here -->
+                </div>
+                
+                <div id="summerQuoteContainer" class="bg-yellow-100/40 backdrop-blur-md rounded-2xl p-6 shadow-xl max-w-lg mx-auto border border-yellow-200/50" style="display: none;">
+                    <div id="summerQuoteEmoji" class="text-6xl mb-4 text-center drop-shadow-lg"></div>
+                    <p id="summerQuoteText" class="text-lg text-green-800 italic mb-4 font-medium"></p>
+                    <div class="flex gap-4 justify-center">
+                        <button id="summerNextButton" class="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🌻 Another Summer Quote
+                        </button>
+                        <button onclick="showSelectionScreen()" class="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-200">
+                            🏠 Back to Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quotes array
+        const quotes = [
+            {
+                text: "Believe you can and you're halfway there.",
+                emoji: "💪🏔️"
+            },
+            {
+                text: "The only way to do great work is to love what you do.",
+                emoji: "❤️💼"
+            },
+            {
+                text: "Life is what happens to you while you're busy making other plans.",
+                emoji: "🌊📅"
+            },
+            {
+                text: "The future belongs to those who believe in the beauty of their dreams.",
+                emoji: "🌟💭"
+            },
+            {
+                text: "It is during our darkest moments that we must focus to see the light.",
+                emoji: "🕯️🌅"
+            },
+            {
+                text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+                emoji: "🏆💪"
+            },
+            {
+                text: "The only impossible journey is the one you never begin.",
+                emoji: "🚀🛤️"
+            },
+            {
+                text: "In the middle of difficulty lies opportunity.",
+                emoji: "⛰️💎"
+            },
+            {
+                text: "Be yourself; everyone else is already taken.",
+                emoji: "🦄✨"
+            },
+            {
+                text: "You are never too old to set another goal or to dream a new dream.",
+                emoji: "🌙🎯"
+            }
+        ];
+
+        // Scene management
+        function showWinterScene() {
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('winterScene').classList.add('active');
+            document.getElementById('summerScene').classList.remove('active');
+            document.getElementById('autumnScene').classList.remove('active');
+            document.getElementById('springScene').classList.remove('active');
+            document.getElementById('rainyScene').classList.remove('active');
+            
+            // Start winter snowfall
+            startWinterSnowfall();
+        }
+
+        function showSummerScene() {
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('summerScene').classList.add('active');
+            document.getElementById('winterScene').classList.remove('active');
+            document.getElementById('autumnScene').classList.remove('active');
+            document.getElementById('springScene').classList.remove('active');
+            document.getElementById('rainyScene').classList.remove('active');
+        }
+
+        function showAutumnScene() {
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('autumnScene').classList.add('active');
+            document.getElementById('winterScene').classList.remove('active');
+            document.getElementById('summerScene').classList.remove('active');
+            document.getElementById('springScene').classList.remove('active');
+            document.getElementById('rainyScene').classList.remove('active');
+            
+            // Start leaf fall
+            startLeaffall();
+        }
+
+        function showSpringScene() {
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('springScene').classList.add('active');
+            document.getElementById('winterScene').classList.remove('active');
+            document.getElementById('summerScene').classList.remove('active');
+            document.getElementById('autumnScene').classList.remove('active');
+            document.getElementById('rainyScene').classList.remove('active');
+            
+            // Start petal fall
+            startPetalfall();
+        }
+
+        function showRainyScene() {
+            document.getElementById('selectionScreen').style.display = 'none';
+            document.getElementById('rainyScene').classList.add('active');
+            document.getElementById('winterScene').classList.remove('active');
+            document.getElementById('summerScene').classList.remove('active');
+            document.getElementById('autumnScene').classList.remove('active');
+            document.getElementById('springScene').classList.remove('active');
+            
+            // Start rainfall
+            startRainfall();
+        }
+
+        function showSelectionScreen() {
+            document.getElementById('selectionScreen').style.display = 'block';
+            document.getElementById('winterScene').classList.remove('active');
+            document.getElementById('summerScene').classList.remove('active');
+            document.getElementById('autumnScene').classList.remove('active');
+            document.getElementById('springScene').classList.remove('active');
+            document.getElementById('rainyScene').classList.remove('active');
+            
+            // Reset scenes
+            resetWinterScene();
+            resetSummerScene();
+            resetAutumnScene();
+            resetSpringScene();
+            resetRainyScene();
+        }
+
+        // Winter scene functions
+        let winterSnowInterval;
+        
+        function startWinterSnowfall() {
+            // Create initial snowflakes
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createWinterSnowflake(), Math.random() * 5000);
+            }
+            
+            // Continuously create new snowflakes
+            winterSnowInterval = setInterval(createWinterSnowflake, 300);
+        }
+
+        function createWinterSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            
+            const snowflakes = ['❄', '❅', '❆', '✻', '✼', '❋'];
+            snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            
+            snowflake.style.left = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 10 + 8;
+            snowflake.style.fontSize = size + 'px';
+            
+            const duration = Math.random() * 15 + 10;
+            snowflake.style.animationDuration = duration + 's';
+            
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+            
+            document.getElementById('winterScene').appendChild(snowflake);
+            
+            setTimeout(() => {
+                if (snowflake.parentNode) {
+                    snowflake.parentNode.removeChild(snowflake);
+                }
+            }, (duration + 5) * 1000);
+        }
+
+        function resetWinterScene() {
+            if (winterSnowInterval) {
+                clearInterval(winterSnowInterval);
+            }
+            
+            // Clear snowflakes
+            const snowflakes = document.getElementById('winterScene').querySelectorAll('.snowflake');
+            snowflakes.forEach(flake => flake.remove());
+            
+            // Reset quote interface
+            document.getElementById('winterConfettiContainer').innerHTML = '';
+            document.getElementById('winterQuoteContainer').style.display = 'none';
+            document.getElementById('winterQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('winterBloomButton').style.display = 'inline-block';
+        }
+
+        function resetSummerScene() {
+            // Reset quote interface
+            document.getElementById('summerConfettiContainer').innerHTML = '';
+            document.getElementById('summerQuoteContainer').style.display = 'none';
+            document.getElementById('summerQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('summerBloomButton').style.display = 'inline-block';
+        }
+
+        // Autumn scene functions
+        let autumnLeafInterval;
+        
+        function startLeaffall() {
+            // Create initial leaves
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => createLeaf(), Math.random() * 5000);
+            }
+            
+            // Continuously create new leaves
+            autumnLeafInterval = setInterval(createLeaf, 800);
+        }
+
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            
+            const leaves = ['🍂', '🍁', '🍃'];
+            leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+            
+            leaf.style.left = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 8 + 14;
+            leaf.style.fontSize = size + 'px';
+            
+            const duration = Math.random() * 8 + 6;
+            leaf.style.animationDuration = duration + 's';
+            
+            leaf.style.animationDelay = Math.random() * 2 + 's';
+            leaf.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            document.getElementById('autumnScene').appendChild(leaf);
+            
+            setTimeout(() => {
+                if (leaf.parentNode) {
+                    leaf.parentNode.removeChild(leaf);
+                }
+            }, (duration + 2) * 1000);
+        }
+
+        function resetAutumnScene() {
+            if (autumnLeafInterval) {
+                clearInterval(autumnLeafInterval);
+            }
+            
+            // Clear leaves
+            const leaves = document.getElementById('autumnScene').querySelectorAll('.leaf');
+            leaves.forEach(leaf => leaf.remove());
+            
+            // Reset quote interface
+            document.getElementById('autumnConfettiContainer').innerHTML = '';
+            document.getElementById('autumnQuoteContainer').style.display = 'none';
+            document.getElementById('autumnQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('autumnBloomButton').style.display = 'inline-block';
+        }
+
+        // Spring scene functions
+        let springPetalInterval;
+        
+        function startPetalfall() {
+            // Create initial petals
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createPetal(), Math.random() * 4500);
+            }
+            
+            // Continuously create new petals
+            springPetalInterval = setInterval(createPetal, 700);
+        }
+
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            const petals = ['🌸', '🌺', '🌷', '🌼'];
+            petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+            
+            petal.style.left = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 6 + 12;
+            petal.style.fontSize = size + 'px';
+            
+            const duration = Math.random() * 6 + 5;
+            petal.style.animationDuration = duration + 's';
+            
+            petal.style.animationDelay = Math.random() * 1.5 + 's';
+            petal.style.opacity = Math.random() * 0.4 + 0.6;
+            
+            document.getElementById('springScene').appendChild(petal);
+            
+            setTimeout(() => {
+                if (petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, (duration + 1.5) * 1000);
+        }
+
+        function resetSpringScene() {
+            if (springPetalInterval) {
+                clearInterval(springPetalInterval);
+            }
+            
+            // Clear petals
+            const petals = document.getElementById('springScene').querySelectorAll('.petal');
+            petals.forEach(petal => petal.remove());
+            
+            // Reset quote interface
+            document.getElementById('springConfettiContainer').innerHTML = '';
+            document.getElementById('springQuoteContainer').style.display = 'none';
+            document.getElementById('springQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('springBloomButton').style.display = 'inline-block';
+        }
+
+        // Rainy scene functions
+        let rainyInterval;
+        
+        function startRainfall() {
+            // Create initial raindrops
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => createRaindrop(), Math.random() * 3000);
+            }
+            
+            // Continuously create new raindrops
+            rainyInterval = setInterval(createRaindrop, 150);
+        }
+
+        function createRaindrop() {
+            const raindrop = document.createElement('div');
+            raindrop.className = 'raindrop';
+            
+            const raindrops = ['💧', '💦', '🌧️'];
+            raindrop.textContent = raindrops[Math.floor(Math.random() * raindrops.length)];
+            
+            raindrop.style.left = Math.random() * 100 + '%';
+            
+            const size = Math.random() * 6 + 12;
+            raindrop.style.fontSize = size + 'px';
+            
+            const duration = Math.random() * 3 + 2;
+            raindrop.style.animationDuration = duration + 's';
+            
+            raindrop.style.animationDelay = Math.random() * 1 + 's';
+            raindrop.style.opacity = Math.random() * 0.4 + 0.5;
+            
+            document.getElementById('rainyScene').appendChild(raindrop);
+            
+            setTimeout(() => {
+                if (raindrop.parentNode) {
+                    raindrop.parentNode.removeChild(raindrop);
+                }
+            }, (duration + 1) * 1000);
+        }
+
+        function resetRainyScene() {
+            if (rainyInterval) {
+                clearInterval(rainyInterval);
+            }
+            
+            // Clear raindrops
+            const raindrops = document.getElementById('rainyScene').querySelectorAll('.raindrop');
+            raindrops.forEach(drop => drop.remove());
+            
+            // Reset quote interface
+            document.getElementById('rainyConfettiContainer').innerHTML = '';
+            document.getElementById('rainyQuoteContainer').style.display = 'none';
+            document.getElementById('rainyQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('rainyBloomButton').style.display = 'inline-block';
+        }
+
+        // Quote functions
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+
+        function createConfetti(container, colors) {
+            const shapes = ['circle', 'square', 'triangle'];
+            
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.borderLeft = '6px solid transparent';
+                    confetti.style.borderRight = '6px solid transparent';
+                    confetti.style.borderBottom = `12px solid ${color}`;
+                    confetti.style.background = 'transparent';
+                } else {
+                    confetti.style.borderRadius = '2px';
+                }
+                
+                if (shape !== 'triangle') {
+                    confetti.style.backgroundColor = color;
+                }
+                
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 1 + 1.5) + 's';
+                
+                container.appendChild(confetti);
+            }
+        }
+
+        // Winter quote functions
+        function burstWinterConfetti() {
+            const container = document.getElementById('winterConfettiContainer');
+            const quoteContainer = document.getElementById('winterQuoteContainer');
+            const colors = ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1'];
+            
+            container.innerHTML = '';
+            quoteContainer.style.display = 'none';
+            
+            createConfetti(container, colors);
+            
+            const quote = getRandomQuote();
+            document.getElementById('winterQuoteText').textContent = quote.text;
+            document.getElementById('winterQuoteEmoji').textContent = quote.emoji;
+            
+            setTimeout(() => {
+                quoteContainer.style.display = 'block';
+                quoteContainer.classList.add('quote-appear');
+            }, 1500);
+            
+            document.getElementById('winterBloomButton').style.display = 'none';
+        }
+
+        function resetWinterGame() {
+            document.getElementById('winterConfettiContainer').innerHTML = '';
+            document.getElementById('winterQuoteContainer').style.display = 'none';
+            document.getElementById('winterQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('winterBloomButton').style.display = 'inline-block';
+        }
+
+        // Summer quote functions
+        function burstSummerConfetti() {
+            const container = document.getElementById('summerConfettiContainer');
+            const quoteContainer = document.getElementById('summerQuoteContainer');
+            const colors = ['#FFD700', '#FF6347', '#32CD32', '#FF69B4', '#00CED1', '#FF4500', '#9370DB', '#20B2AA'];
+            
+            container.innerHTML = '';
+            quoteContainer.style.display = 'none';
+            
+            createConfetti(container, colors);
+            
+            const quote = getRandomQuote();
+            document.getElementById('summerQuoteText').textContent = quote.text;
+            document.getElementById('summerQuoteEmoji').textContent = quote.emoji;
+            
+            setTimeout(() => {
+                quoteContainer.style.display = 'block';
+                quoteContainer.classList.add('quote-appear');
+            }, 1500);
+            
+            document.getElementById('summerBloomButton').style.display = 'none';
+        }
+
+        function resetSummerGame() {
+            document.getElementById('summerConfettiContainer').innerHTML = '';
+            document.getElementById('summerQuoteContainer').style.display = 'none';
+            document.getElementById('summerQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('summerBloomButton').style.display = 'inline-block';
+        }
+
+        // Rainy quote functions
+        function burstRainyConfetti() {
+            const container = document.getElementById('rainyConfettiContainer');
+            const quoteContainer = document.getElementById('rainyQuoteContainer');
+            const colors = ['#60A5FA', '#3B82F6', '#1E40AF', '#6366F1', '#8B5CF6', '#A855F7', '#9CA3AF', '#6B7280'];
+            
+            container.innerHTML = '';
+            quoteContainer.style.display = 'none';
+            
+            createConfetti(container, colors);
+            
+            const quote = getRandomQuote();
+            document.getElementById('rainyQuoteText').textContent = quote.text;
+            document.getElementById('rainyQuoteEmoji').textContent = quote.emoji;
+            
+            setTimeout(() => {
+                quoteContainer.style.display = 'block';
+                quoteContainer.classList.add('quote-appear');
+            }, 1500);
+            
+            document.getElementById('rainyBloomButton').style.display = 'none';
+        }
+
+        function resetRainyGame() {
+            document.getElementById('rainyConfettiContainer').innerHTML = '';
+            document.getElementById('rainyQuoteContainer').style.display = 'none';
+            document.getElementById('rainyQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('rainyBloomButton').style.display = 'inline-block';
+        }
+
+        // Autumn quote functions
+        function burstAutumnConfetti() {
+            const container = document.getElementById('autumnConfettiContainer');
+            const quoteContainer = document.getElementById('autumnQuoteContainer');
+            const colors = ['#FF8C00', '#FF6347', '#D2691E', '#CD853F', '#DEB887', '#F4A460', '#B22222', '#A0522D'];
+            
+            container.innerHTML = '';
+            quoteContainer.style.display = 'none';
+            
+            createConfetti(container, colors);
+            
+            const quote = getRandomQuote();
+            document.getElementById('autumnQuoteText').textContent = quote.text;
+            document.getElementById('autumnQuoteEmoji').textContent = quote.emoji;
+            
+            setTimeout(() => {
+                quoteContainer.style.display = 'block';
+                quoteContainer.classList.add('quote-appear');
+            }, 1500);
+            
+            document.getElementById('autumnBloomButton').style.display = 'none';
+        }
+
+        function resetAutumnGame() {
+            document.getElementById('autumnConfettiContainer').innerHTML = '';
+            document.getElementById('autumnQuoteContainer').style.display = 'none';
+            document.getElementById('autumnQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('autumnBloomButton').style.display = 'inline-block';
+        }
+
+        // Spring quote functions
+        function burstSpringConfetti() {
+            const container = document.getElementById('springConfettiContainer');
+            const quoteContainer = document.getElementById('springQuoteContainer');
+            const colors = ['#FFB6C1', '#FFC0CB', '#FF69B4', '#FF1493', '#98FB98', '#90EE90', '#00FF7F', '#32CD32'];
+            
+            container.innerHTML = '';
+            quoteContainer.style.display = 'none';
+            
+            createConfetti(container, colors);
+            
+            const quote = getRandomQuote();
+            document.getElementById('springQuoteText').textContent = quote.text;
+            document.getElementById('springQuoteEmoji').textContent = quote.emoji;
+            
+            setTimeout(() => {
+                quoteContainer.style.display = 'block';
+                quoteContainer.classList.add('quote-appear');
+            }, 1500);
+            
+            document.getElementById('springBloomButton').style.display = 'none';
+        }
+
+        function resetSpringGame() {
+            document.getElementById('springConfettiContainer').innerHTML = '';
+            document.getElementById('springQuoteContainer').style.display = 'none';
+            document.getElementById('springQuoteContainer').classList.remove('quote-appear');
+            document.getElementById('springBloomButton').style.display = 'inline-block';
+        }
+
+        // Event listeners
+        document.getElementById('winterBloomButton').addEventListener('click', burstWinterConfetti);
+        document.getElementById('winterNextButton').addEventListener('click', resetWinterGame);
+        document.getElementById('summerBloomButton').addEventListener('click', burstSummerConfetti);
+        document.getElementById('summerNextButton').addEventListener('click', resetSummerGame);
+        document.getElementById('autumnBloomButton').addEventListener('click', burstAutumnConfetti);
+        document.getElementById('autumnNextButton').addEventListener('click', resetAutumnGame);
+        document.getElementById('springBloomButton').addEventListener('click', burstSpringConfetti);
+        document.getElementById('springNextButton').addEventListener('click', resetSpringGame);
+        document.getElementById('rainyBloomButton').addEventListener('click', burstRainyConfetti);
+        document.getElementById('rainyNextButton').addEventListener('click', resetRainyGame);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99015b6670279149',t:'MTc2MDcyMDQ3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
