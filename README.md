@@ -36,5 +36,3 @@
 ---
 
 
-### Small Description (for GitHub repo overview)
-> An interactive web app offering seasonal scenes with animated visuals and inspirational quotes for Winter, Summer, Autumn, Spring, and Rainy moods.
