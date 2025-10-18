@@ -1,5 +1,5 @@
 # 🌟 Seasonal Quotes - Choose Your Adventure
- https://vaishnaviravi20061-hash.github.io/Seasonal-Quotes/
+https://vaishnavipr-hash.github.io/Seasonal-Quotes/
 
 ## Description
 **Seasonal Quotes** is an interactive web app that brings inspiration and joy through beautifully themed seasonal scenes. Users can select from **Winter, Summer, Autumn, Spring, and Rainy** environments, each featuring animated visuals, confetti bursts, and motivational quotes. Perfect for a quick dose of seasonal cheer and creativity.
