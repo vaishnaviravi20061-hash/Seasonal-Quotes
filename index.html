@@ -1072,9 +1072,7 @@
     </div>
 
             
-<p>👀 Visitors so far: <span id="visitorCount">0</span></p>
-
-
+<div>This page has been visited <span id="visit-count">...</span> times.</div>
 
     
     <script>
@@ -1653,16 +1651,23 @@
   });
 </script>
 
-<script>
-  const namespace = "seasonalQuotesSite"; // your namespace
-  const key = "visitors"; // your counter key
 
-  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("visitorCount").innerText = data.value;
-    })
-    .catch(err => console.log("Error fetching visitor count:", err));
+
+<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const counter = new Counter({
+    workspace: "seasonal-quotes-visitors",
+    accessToken: "ut_QzQxtH4Ja71LfuyNCPE03ziInx7hYT5OZUmcNMZH",
+  });
+
+  try {
+    const result = await counter.up("homepage");
+    document.getElementById("visit-count").textContent = result.value;
+  } catch (err) {
+    console.error("CounterAPI error:", err);
+  }
+});
 </script>
 
     
@@ -1671,6 +1676,7 @@
 
 
 </html>
+
 
 
 
