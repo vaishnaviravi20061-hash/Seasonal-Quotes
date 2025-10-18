@@ -1072,9 +1072,8 @@
     </div>
 
             
-<div class="visitor-counter text-yellow-400 font-bold text-xl text-center mt-4 drop-shadow-lg">
-  🌟 Visitors so far: <span id="visitorCount">0</span>
-</div>
+<p>👀 Visitors so far: <span id="visitorCount">0</span></p>
+
 
 
     
@@ -1632,7 +1631,8 @@
         document.getElementById('rainyBloomButton').addEventListener('click', burstRainyConfetti);
         document.getElementById('rainyNextButton').addEventListener('click', resetRainyGame);
     </script>
-
+    
+<!----Music---->
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const audio = new Audio('wildflowers.mp3');
@@ -1654,19 +1654,15 @@
 </script>
 
 <script>
-  // URL of your CountAPI counter
-  const counterURL = "https://api.countapi.xyz/hit/seasonalquotes/visitors";
+  const namespace = "seasonalQuotesSite"; // your namespace
+  const key = "visitors"; // your counter key
 
-  // Fetch and display the count
-  fetch(counterURL)
-    .then(response => response.json())
+  fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+    .then(res => res.json())
     .then(data => {
-      // data.value contains the current visitor count
       document.getElementById("visitorCount").innerText = data.value;
     })
-    .catch(error => {
-      console.error("Error fetching visitor count:", error);
-    });
+    .catch(err => console.log("Error fetching visitor count:", err));
 </script>
 
     
@@ -1675,6 +1671,7 @@
 
 
 </html>
+
 
 
 
